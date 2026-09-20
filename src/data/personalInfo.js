@@ -5,8 +5,8 @@
 const personalInfo = {
   name: 'Atharva Shrinivas Kulkarni',
   title: 'Full Stack Developer',
-  tagline: 'I build things for the web that actually work.',
-  bio: `I'm a full-stack developer who cares about writing clean code that solves real problems. I've built platforms connecting farmers to government resources and crafted tools that make campus life smoother — always focused on impact over complexity. Recently graduated with a B.Tech in 2026 and actively looking for roles where I can contribute from day one.`,
+  tagline: 'Building tech that reaches millions — one line at a time.',
+  bio: `I'm a full-stack developer passionate about building technology that creates real-world impact at scale. From platforms empowering rural farmers to access government resources, to tools that simplify campus life for hundreds of students — I care about solving problems that matter. Graduated with a B.Tech in Electronics & Telecommunication in 2026, and actively looking for roles where I can build, learn, and grow from day one.`,
   email: 'atharvakulkarrni@gmail.com',
   phone: '9689722003',
   location: 'Pune, Maharashtra, India',
@@ -23,8 +23,8 @@ const personalInfo = {
 
   // Education
   education: {
-    degree: 'B.Tech — Electronics & Telecommunication Engineering',
-    institution: 'SGGSIE&T',
+    degree: 'B.Tech in Electronics & Telecommunication Engineering',
+    institution: 'SGGSIE&T, Nanded',
     location: 'Nanded, Maharashtra, India',
     startYear: 2022,
     endYear: 2026,
