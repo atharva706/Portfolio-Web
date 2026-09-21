@@ -4,7 +4,7 @@
 
 // Truncate long text with an ellipsis
 // truncateText('Hello World', 5) → 'Hello...'
-export const truncateText = (text, maxLength)  => {
+export const truncateText = (text, maxLength) => {
   if (!text || text.length <= maxLength) return text
   return `${text.slice(0, maxLength).trim()}...`
 }
