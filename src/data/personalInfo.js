@@ -10,7 +10,7 @@ const personalInfo = {
   email: 'atharvakulkarrni@gmail.com',
   phone: '9689722003',
   location: 'Pune, Maharashtra, India',
-  resumeUrl: '/Atharva Kulkarni resume.pdf',
+  resumeUrl: '/Atharva_Kulkarni_Resume.pdf',
 
   // Social links
   social: {
