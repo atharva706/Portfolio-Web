@@ -1,36 +1,66 @@
 // ThemeContext.jsx
-// Provides isDark boolean + toggleTheme function to the entire app.
-// Persists the user's preference in localStorage.
-// Adds/removes the 'dark' class on <html> so all Tailwind dark: variants work.
+// Manages three themes: 'dark-dev' | 'dark-glass' | 'light'
+//
+// Applied via data-theme="..." on <html> so all CSS custom-property
+// definitions in index.css activate automatically.
+// Also keeps 'dark' class in sync so existing Tailwind dark: variants
+// keep working for the two dark themes.
 
 import { createContext, useContext, useEffect, useState } from 'react'
+
+export const THEMES = [
+  {
+    id: 'dark-dev',
+    label: 'Dark Dev',
+    description: 'Pure black · editorial',
+    icon: '◼',
+    accentClass: 'bg-[#6C63FF]',
+  },
+  {
+    id: 'dark-glass',
+    label: 'Dark Glass',
+    description: 'Deep navy · glassmorphic',
+    icon: '◈',
+    accentClass: 'bg-[#38bdf8]',
+  },
+  {
+    id: 'light',
+    label: 'Light',
+    description: 'Clean white · minimal',
+    icon: '◻',
+    accentClass: 'bg-[#6C63FF]',
+  },
+]
 
 const ThemeContext = createContext(undefined)
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    // 1. Check localStorage first
-    const stored = localStorage.getItem('theme')
-    if (stored) return stored === 'dark'
-    // 2. Fall back to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem('portfolio-theme')
+    if (stored && THEMES.find(t => t.id === stored)) return stored
+    return 'dark-dev'
   })
 
   useEffect(() => {
     const root = document.documentElement
-    if (isDark) {
-      root.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
+    // Set data-theme for CSS variable switching
+    root.setAttribute('data-theme', theme)
+    // Keep dark class for any remaining Tailwind dark: utilities
+    if (theme === 'light') {
       root.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
+    } else {
+      root.classList.add('dark')
     }
-  }, [isDark])
+    localStorage.setItem('portfolio-theme', theme)
+  }, [theme])
 
-  const toggleTheme = () => setIsDark((prev) => !prev)
+  // Backward-compat shim — old code uses isDark / toggleTheme
+  const isDark = theme !== 'light'
+  const toggleTheme = () =>
+    setTheme(t => (t === 'dark-dev' ? 'light' : 'dark-dev'))
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, isDark, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   )

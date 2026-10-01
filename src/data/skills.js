@@ -39,8 +39,8 @@ const skills = [
   {
     category: 'Other',
     items: [
-      { name: 'DSA',        icon: 'TbBinaryTree',  color: '#6C63FF' },
-      { name: 'OOP',        icon: 'TbBoxModel',    color: '#6C63FF' },
+      { name: 'DSA',        icon: 'TbBinaryTree',  color: 'var(--t-primary)' },
+      { name: 'OOP',        icon: 'TbBoxModel',    color: 'var(--t-primary)' },
     ],
   },
 ]

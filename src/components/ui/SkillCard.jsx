@@ -4,7 +4,7 @@
 // Used in: Skills section
 
 const SkillCard = ({ skill }) => {
-  const { name, icon, color = '#6C63FF' } = skill
+  const { name, icon, color = 'var(--t-primary)' } = skill
 
   return (
     <div

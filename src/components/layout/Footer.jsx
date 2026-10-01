@@ -1,7 +1,16 @@
-// Footer Component
-// Bottom of the page — logo, nav links, social icons, copyright, back-to-top button.
-// Full dark / light theme support.
+// Footer — dark editorial, synced with Hero/Navbar
+//
+// Synced:
+//   • Same #000 background + hero-grid overlay (25% opacity)
+//   • Top divider glow matches Navbar scroll-progress gradient colours
+//   • Logo badge: identical to Navbar AK badge (gradient + conic pulse)
+//   • Social icon pills match Hero social icon style + whileHover spring
+//   • Quick-link hover: same underline-grow as Navbar nav-underline
+//   • Status card mirrors Hero availability chip + About "open to work" card
+//   • gradient-shimmer on brand name
+//   • Back-to-top button: same spring config as Hero CTAs
 
+import { motion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi'
 import { SiLeetcode } from 'react-icons/si'
 import personalInfo from '../../data/personalInfo'
@@ -15,109 +24,106 @@ const NAV_LINKS = [
   { label: 'Contact',    id: 'contact'    },
 ]
 
-const scrollTo = (id) =>
+const scrollTo = id =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
-const Footer = () => {
+export default function Footer() {
   const { name, email, social } = personalInfo
   const year = new Date().getFullYear()
 
-  return (
-    <footer className="relative dark:bg-darkCard bg-white
-                       dark:border-t dark:border-white/5 border-t border-primary/10">
+  const socialLinks = [
+    social.github   && { href: social.github,           icon: FiGithub,   label: 'GitHub'   },
+    social.linkedin && { href: social.linkedin,         icon: FiLinkedin, label: 'LinkedIn' },
+    social.leetcode && { href: social.leetcode,         icon: SiLeetcode, label: 'LeetCode' },
+    {                   href: `mailto:${email}`,        icon: FiMail,     label: 'Email'    },
+  ].filter(Boolean)
 
-      {/* ── Top divider glow ── */}
+  return (
+    <footer
+      className="relative overflow-hidden"
+      style={{ background: 'var(--t-bg)' }}
+    >
+      {/* Grid overlay — 25% so it's subtle */}
+      <div aria-hidden className="hero-grid absolute inset-0 pointer-events-none opacity-25" />
+
+      {/* Top divider — same gradient colours as Navbar scroll-progress bar */}
       <div
-        aria-hidden="true"
-        className="absolute top-0 left-1/2 -translate-x-1/2
-                   w-48 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{
+          background: 'linear-gradient(90deg,transparent,rgba(var(--t-primary-rgb),0.45),rgba(168,85,247,0.35),rgba(var(--t-primary-rgb),0.45),transparent)',
+        }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-12">
+      {/* Faint aurora top-right */}
+      <div aria-hidden className="section-glow absolute pointer-events-none"
+        style={{ top: '-30%', right: '-10%', width: 400, height: 400, borderRadius: '50%',
+          background: 'radial-gradient(circle,rgba(var(--t-primary-rgb),0.08) 0%,transparent 65%)',
+          filter: 'blur(70px)' }} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10">
+      <div className="max-w-[1360px] mx-auto px-5 md:px-12 lg:px-20 py-14 relative z-10">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-12">
 
           {/* ── Brand column ── */}
-          <div className="flex flex-col gap-4">
-            <button
+          <div className="flex flex-col gap-5">
+            {/* Logo — identical to Navbar badge */}
+            <motion.button
               onClick={() => scrollTo('hero')}
-              className="text-left w-fit font-bold text-lg dark:text-white text-lightText
-                         hover:text-primary transition-colors duration-200"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.93 }}
+              className="relative w-[38px] h-[38px] rounded-xl overflow-hidden
+                         flex items-center justify-center
+                         font-display font-extrabold text-[14px] text-white"
+              style={{ background: 'linear-gradient(135deg,#6C63FF,#a855f7)' }}
               aria-label="Scroll to top"
             >
-              Atharva <span className="text-primary">Kulkarni</span>
-            </button>
-            <p className="text-xs dark:text-textLight text-[#4B5563] leading-relaxed max-w-xs">
-              Full-stack developer. I write clean code, ship real products, and pick things up fast.
-            </p>
-            {/* Social icons */}
-            <div className="flex items-center gap-3 mt-1">
-              {social.github && (
-                <a
-                  href={social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="w-9 h-9 rounded-full flex items-center justify-center
-                             dark:border-white/10 border-primary/15 border
-                             dark:text-textLight text-[#4B5563]
-                             hover:text-primary hover:border-primary/50
-                             dark:hover:bg-primary/10 hover:bg-primary/5
-                             transition-all duration-200"
-                >
-                  <FiGithub size={15} />
-                </a>
-              )}
-              {social.linkedin && (
-                <a
-                  href={social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-full flex items-center justify-center
-                             dark:border-white/10 border-primary/15 border
-                             dark:text-textLight text-[#4B5563]
-                             hover:text-primary hover:border-primary/50
-                             dark:hover:bg-primary/10 hover:bg-primary/5
-                             transition-all duration-200"
-                >
-                  <FiLinkedin size={15} />
-                </a>
-              )}
-              {social.leetcode && (
-                <a
-                  href={social.leetcode}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LeetCode"
-                  className="w-9 h-9 rounded-full flex items-center justify-center
-                             dark:border-white/10 border-primary/15 border
-                             dark:text-textLight text-[#4B5563]
-                             hover:text-primary hover:border-primary/50
-                             dark:hover:bg-primary/10 hover:bg-primary/5
-                             transition-all duration-200"
-                >
-                  <SiLeetcode size={15} />
-                </a>
-              )}
-              <a
-                href={`mailto:${email}`}
-                aria-label="Email"
-                className="w-9 h-9 rounded-full flex items-center justify-center
-                           dark:border-white/10 border-primary/15 border
-                           dark:text-textLight text-[#4B5563]
-                           hover:text-primary hover:border-primary/50
-                           dark:hover:bg-primary/10 hover:bg-primary/5
-                           transition-all duration-200"
+              <motion.span
+                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute inset-0 rounded-xl"
+                style={{ background: 'radial-gradient(circle at 60% 40%,rgba(255,255,255,0.35),transparent 65%)' }}
+              />
+              <span className="relative z-10">AK</span>
+            </motion.button>
+
+            <div>
+              {/* gradient-shimmer on name */}
+              <button
+                onClick={() => scrollTo('hero')}
+                className="font-display font-extrabold text-[17px] gradient-shimmer mb-1 block"
+                aria-label="Scroll to top"
               >
-                <FiMail size={15} />
-              </a>
+                Atharva Kulkarni
+              </button>
+              <p className="text-[12.5px] text-white/35 leading-[1.85] max-w-[220px]">
+                Full-stack developer. Clean code, real products, ships fast.
+              </p>
+            </div>
+
+            {/* Social icons — matches Hero social row style */}
+            <div className="flex items-center gap-3">
+              {socialLinks.map(({ href, icon: Icon, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  whileHover={{ y: -4, scale: 1.22 }}
+                  whileTap={{ scale: 0.85 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+                  className="text-white/25 hover:text-primary transition-colors duration-200"
+                >
+                  <Icon size={17} />
+                </motion.a>
+              ))}
             </div>
           </div>
 
           {/* ── Quick links ── */}
-          <div className="flex flex-col gap-3">
-            <p className="text-xs font-bold dark:text-white text-lightText tracking-widest uppercase">
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.20em] text-white/28">
               Quick Links
             </p>
             <ul className="flex flex-col gap-2" role="list">
@@ -125,74 +131,89 @@ const Footer = () => {
                 <li key={id}>
                   <button
                     onClick={() => scrollTo(id)}
-                    className="text-xs dark:text-textLight text-[#4B5563]
-                               hover:text-primary transition-colors duration-200 text-left"
+                    className="group relative text-[12.5px] text-white/35
+                               hover:text-white/80 transition-colors duration-200 text-left"
                   >
                     {label}
+                    {/* underline-grow — same as Navbar nav-underline */}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary rounded-full
+                                     group-hover:w-full transition-all duration-300" />
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ── Availability card ── */}
-          <div className="flex flex-col gap-3">
-            <p className="text-xs font-bold dark:text-white text-lightText tracking-widest uppercase">
+          {/* ── Status card ── */}
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.20em] text-white/28">
               Status
             </p>
-            <div className="p-4 rounded-2xl
-                            dark:bg-dark bg-[#F1F0FF]
-                            border dark:border-white/5 border-primary/15
-                            flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-semibold dark:text-white text-lightText">
-                  Open to opportunities
+
+            <div
+              className="rounded-2xl p-5 border border-primary/20 flex flex-col gap-3"
+              style={{ background: 'rgba(var(--t-primary-rgb),0.06)', backdropFilter: 'blur(12px)' }}
+            >
+              {/* Availability chip — mirrors Hero exactly */}
+              <span className="flex items-center gap-2 text-[11px] font-semibold
+                               uppercase tracking-[0.14em] text-white/50">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="ping-dot absolute inset-0 rounded-full bg-emerald-400" />
+                  <span className="relative rounded-full h-1.5 w-1.5 bg-emerald-400" />
                 </span>
-              </div>
-              <p className="text-xs dark:text-textLight text-[#4B5563] leading-relaxed">
-                Graduated B.Tech 2026. Looking for full-stack or frontend roles. Fast learner, ships clean code.
+                Open to opportunities
+              </span>
+
+              <p className="text-[12px] text-white/35 leading-[1.85]">
+                Graduated B.Tech 2026. Looking for full-stack or frontend roles.
+                Fast learner, ships clean code.
               </p>
-              <button
+
+              <motion.button
+                whileHover={{ x: 3 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => scrollTo('contact')}
-                className="mt-1 text-xs font-semibold text-primary hover:text-primary/80
+                className="text-[11.5px] font-semibold text-primary/70 hover:text-primary
                            transition-colors duration-200 text-left"
               >
                 Let's talk →
-              </button>
+              </motion.button>
             </div>
           </div>
 
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4
-                        pt-6 border-t dark:border-white/5 border-primary/10">
-          <p className="text-xs dark:text-textLight/60 text-lightMuted text-center sm:text-left">
-            © {year} {name}. Built with React & Tailwind CSS.
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-4
+                     pt-8 border-t border-white/[0.05]"
+        >
+          <p className="text-[11px] text-white/22 text-center sm:text-left font-mono">
+            © {year} {name} · Built with React &amp; Tailwind CSS
           </p>
 
           {/* Back to top */}
-          <button
+          <motion.button
             onClick={() => scrollTo('hero')}
             aria-label="Back to top"
-            className="group flex items-center gap-2 text-xs
-                       dark:text-textLight text-[#4B5563]
-                       hover:text-primary transition-colors duration-200"
+            whileHover={{ y: -3, scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+            className="group flex items-center gap-2 text-[11.5px] font-semibold
+                       text-white/28 hover:text-white/75 transition-colors duration-200"
           >
             Back to top
-            <span className="w-7 h-7 rounded-full flex items-center justify-center
-                             dark:border-white/10 border-primary/15 border
-                             group-hover:border-primary/50 group-hover:bg-primary/10
-                             transition-all duration-200">
-              <FiArrowUp size={13} />
+            <span
+              className="w-7 h-7 rounded-full flex items-center justify-center
+                         border border-white/[0.08] group-hover:border-primary/50
+                         group-hover:bg-primary/12 transition-all duration-200"
+            >
+              <FiArrowUp size={12} />
             </span>
-          </button>
+          </motion.button>
         </div>
 
       </div>
     </footer>
   )
 }
-
-export default Footer

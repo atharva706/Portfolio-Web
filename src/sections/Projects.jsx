@@ -1,92 +1,125 @@
-// Projects Section
-// Responsive grid of ProjectCards.
-// Scroll-triggered stagger animations, full dark/light theme support.
+// Projects — dark editorial, synced with Hero/Navbar
+//
+// Synced:
+//   • hero-grid overlay for visual continuity
+//   • Same aurora blob pattern as Hero/About/Skills
+//   • section-label + gradient-shimmer headline
+//   • Staggered whileInView card grid — same spring config
+//   • GitHub CTA mirrors Hero's "Get in touch" secondary button
+//   • max-w-[1360px] content width
 
 import { motion } from 'framer-motion'
-import { FiArrowRight } from 'react-icons/fi'
+import { FiGithub, FiArrowRight } from 'react-icons/fi'
 import projects from '../data/projects'
 import ProjectCard from '../components/ui/ProjectCard'
-import SectionTitle from '../components/ui/SectionTitle'
 
-// ── Animation variants ────────────────────────────────────────────────────────
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-}
+// ─── Reveal wrapper ────────────────────────────────────────────────────
+const Reveal = ({ children, delay = 0, className = '' }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 36 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-72px' }}
+    transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+)
 
-const cardVariant = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-}
-
-// ── Projects ──────────────────────────────────────────────────────────────────
-const Projects = () => {
+// ─── PROJECTS ──────────────────────────────────────────────────────────
+export default function Projects() {
   return (
-    <section id="projects" className="section-padding relative overflow-hidden">
+    <section
+      id="projects"
+      className="relative py-28 px-5 md:px-12 lg:px-20 overflow-hidden"
+      style={{ background: 'var(--t-bg)' }}
+    >
+      {/* Hero-matched grid */}
+      <div aria-hidden className="hero-grid absolute inset-0 pointer-events-none opacity-50" />
 
-      {/* Background blob */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0
-                   w-[400px] h-[400px] rounded-full
-                   bg-primary/10 dark:bg-primary/8 blur-[120px]"
-      />
+      {/* Aurora blobs */}
+      <div aria-hidden className="section-glow absolute pointer-events-none"
+        style={{ top: '-5%', right: '-8%', width: 580, height: 580, borderRadius: '50%',
+          background: 'radial-gradient(circle,var(--t-glow-1) 0%,transparent 65%)',
+          filter: 'blur(80px)' }} />
+      <div aria-hidden className="section-glow absolute pointer-events-none"
+        style={{ bottom: '0%', left: '-10%', width: 460, height: 460, borderRadius: '50%',
+          background: 'radial-gradient(circle,var(--t-glow-2) 0%,transparent 65%)',
+          filter: 'blur(70px)', animationDelay: '5s' }} />
+      <div aria-hidden className="section-glow absolute pointer-events-none"
+        style={{ top: '40%', left: '35%', width: 320, height: 320, borderRadius: '50%',
+          background: 'radial-gradient(circle,var(--t-glow-3) 0%,transparent 60%)',
+          filter: 'blur(60px)', animationDelay: '10s' }} />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-[1360px] mx-auto relative z-10">
 
-        <SectionTitle
-          label="What I've Built"
-          title="Projects"
-          subtitle="Real things I've shipped — not just tutorials. Each one taught me something new."
-        />
+        {/* ═══ HEADER ═══ */}
+        <Reveal className="text-center mb-16">
+          <div className="section-label justify-center mb-5">What I've Built</div>
+          <h2
+            className="font-display font-extrabold text-white leading-[1.04] tracking-[-0.03em]"
+            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
+          >
+            Featured <span className="gradient-shimmer">Projects</span>
+          </h2>
+          <p className="mt-5 text-white/35 max-w-[480px] mx-auto leading-[1.9]"
+            style={{ fontSize: '14.5px' }}>
+            Real things I've shipped — not just tutorials. Each one taught me something new.
+          </p>
+        </Reveal>
 
-        {/* ── Cards grid ── */}
+        {/* ═══ CARDS GRID ═══ */}
         <motion.div
-          variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.10 } },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {projects.map((project) => (
-            <motion.div key={project.id} variants={cardVariant}>
+          {projects.map((project, i) => (
+            <motion.div
+              key={project.id}
+              variants={{
+                hidden:  { opacity: 0, y: 36, scale: 0.96 },
+                visible: { opacity: 1, y: 0,  scale: 1,
+                  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+              }}
+              className="h-full"
+            >
               <ProjectCard project={project} />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* ── GitHub CTA ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 flex justify-center"
-        >
-          <a
+        {/* ═══ GITHUB CTA — mirrors Hero secondary button ═══ */}
+        <Reveal delay={0.2} className="mt-14 flex justify-center">
+          <motion.a
             href="https://github.com/atharva706"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2
-                       px-6 py-3 rounded-xl text-sm font-semibold
-                       dark:border-white/10 border-primary/20 border
-                       dark:text-textLight text-[#4B5563]
-                       dark:hover:border-primary/50 hover:border-primary/50
-                       hover:text-primary
-                       dark:hover:bg-primary/5 hover:bg-primary/5
-                       transition-all duration-300"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            className="group inline-flex items-center gap-2.5 text-[13px] font-semibold
+                       px-7 py-3.5 rounded-xl text-white/55 hover:text-white
+                       border border-white/[0.1] hover:border-primary/40
+                       hover:bg-primary/[0.06] transition-all duration-200"
+            style={{ backdropFilter: 'blur(12px)' }}
           >
-            More projects on GitHub
-            <FiArrowRight
-              size={15}
-              className="group-hover:translate-x-1 transition-transform duration-200"
-            />
-          </a>
-        </motion.div>
+            <FiGithub size={15} />
+            More on GitHub
+            <motion.span
+              animate={{ x: [0, 3, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <FiArrowRight size={13} strokeWidth={2.5} />
+            </motion.span>
+          </motion.a>
+        </Reveal>
 
       </div>
     </section>
   )
 }
-
-export default Projects
