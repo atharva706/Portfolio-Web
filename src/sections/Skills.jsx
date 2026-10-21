@@ -168,7 +168,7 @@ export default function Skills() {
                 className="relative px-5 py-2 rounded-full text-[12px] font-semibold
                            border transition-all duration-250 overflow-hidden"
                 style={isActive ? {
-                  background: 'linear-gradient(135deg,#6C63FF,#a855f7)',
+                  background: 'linear-gradient(135deg,#2563EB,#3B82F6)',
                   borderColor: 'transparent',
                   color: '#fff',
                   boxShadow: '0 0 22px rgba(var(--t-primary-rgb),0.50)',
@@ -194,7 +194,7 @@ export default function Skills() {
                   <motion.span
                     layoutId="tab-pill"
                     className="absolute inset-0 rounded-full -z-10"
-                    style={{ background: 'linear-gradient(135deg,#6C63FF,#a855f7)' }}
+                    style={{ background: 'linear-gradient(135deg,#2563EB,#3B82F6)' }}
                     transition={{ type: 'spring', stiffness: 360, damping: 34 }}
                   />
                 )}
@@ -227,7 +227,7 @@ export default function Skills() {
                     className="flex items-center gap-4 mb-6"
                   >
                     <div className="w-2 h-2 rounded-full bg-primary shrink-0"
-                      style={{ boxShadow: '0 0 8px rgba(108,99,255,0.8)' }} />
+                      style={{ boxShadow: '0 0 8px rgba(37,99,235,0.8)' }} />
                     <span className="text-[12px] font-bold text-white/55 uppercase tracking-[0.16em]">
                       {group.category}
                     </span>

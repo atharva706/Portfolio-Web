@@ -75,7 +75,7 @@ export default function Footer() {
               className="relative w-[38px] h-[38px] rounded-xl overflow-hidden
                          flex items-center justify-center
                          font-display font-extrabold text-[14px] text-white"
-              style={{ background: 'linear-gradient(135deg,#6C63FF,#a855f7)' }}
+              style={{ background: 'linear-gradient(135deg,#2563EB,#3B82F6)' }}
               aria-label="Scroll to top"
             >
               <motion.span

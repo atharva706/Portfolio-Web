@@ -14,21 +14,21 @@ export const THEMES = [
     label: 'Dark Dev',
     description: 'Pure black · editorial',
     icon: '◼',
-    accentClass: 'bg-[#6C63FF]',
+    accentClass: 'bg-blue-600',
   },
   {
     id: 'dark-glass',
     label: 'Dark Glass',
     description: 'Deep navy · glassmorphic',
     icon: '◈',
-    accentClass: 'bg-[#38bdf8]',
+    accentClass: 'bg-blue-400',
   },
   {
     id: 'light',
     label: 'Light',
     description: 'Clean white · minimal',
     icon: '◻',
-    accentClass: 'bg-[#6C63FF]',
+    accentClass: 'bg-blue-500',
   },
 ]
 

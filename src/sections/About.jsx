@@ -29,13 +29,13 @@ const FOCUS = [
   },
   {
     icon: FiServer,
-    color: '#a855f7',
+    color: '#3B82F6',
     title: 'Backend & APIs',
     desc: 'Node.js, Express, REST APIs — clean architecture, fast response times, built to scale.',
   },
   {
     icon: FiCpu,
-    color: '#e879f9',
+    color: '#93C5FD',
     title: 'Problem Solving',
     desc: '100+ DSA problems solved. Strong OOP and systems thinking — I debug fast and design for edge cases.',
   },
@@ -213,10 +213,10 @@ export default function About() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="icon-badge w-10 h-10 rounded-xl flex items-center justify-center"
                     style={{
-                      background: 'linear-gradient(135deg,var(--t-glow-2),rgba(217,70,239,0.20))',
-                      border: '1px solid var(--t-glow-2)',
+                      background: 'linear-gradient(135deg,rgba(59,130,246,0.25),rgba(var(--t-primary-rgb),0.15))',
+                      border: '1px solid rgba(59,130,246,0.22)',
                     }}>
-                    <FiCalendar size={17} className="text-violet-400" />
+                    <FiCalendar size={17} className="text-blue-400" />
                   </div>
                   <h3 className="font-semibold text-white/85 text-[14px]">Education</h3>
                 </div>
@@ -256,10 +256,10 @@ export default function About() {
                   <div className="flex items-center gap-3">
                     <div className="icon-badge w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                       style={{
-                        background: 'linear-gradient(135deg,rgba(217,70,239,0.30),rgba(var(--t-primary-rgb),0.20))',
-                        border: '1px solid rgba(217,70,239,0.25)',
+                        background: 'linear-gradient(135deg,rgba(59,130,246,0.25),rgba(var(--t-primary-rgb),0.15))',
+                        border: '1px solid rgba(59,130,246,0.22)',
                       }}>
-                      <FiAward size={17} className="text-fuchsia-400" />
+                      <FiAward size={17} className="text-blue-300" />
                     </div>
                     <div>
                       <p className="text-[13px] font-semibold text-white/85">

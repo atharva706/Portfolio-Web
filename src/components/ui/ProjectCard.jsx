@@ -41,7 +41,7 @@ const ProjectCard = ({ project }) => {
           <div className="w-full h-full flex flex-col items-center justify-center gap-3">
             {/* Same style as Hero AK avatar */}
             <div className="relative w-14 h-14 rounded-2xl overflow-hidden"
-              style={{ background: 'linear-gradient(135deg,#6C63FF,#a855f7)' }}>
+              style={{ background: 'linear-gradient(135deg,#2563EB,#3B82F6)' }}>
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
@@ -126,7 +126,7 @@ const ProjectCard = ({ project }) => {
                          px-3 py-1.5 rounded-lg text-white
                          transition-all duration-200"
               style={{
-                background: 'linear-gradient(135deg,#6C63FF,#a855f7)',
+                background: 'linear-gradient(135deg,#2563EB,#3B82F6)',
                 boxShadow: '0 0 16px rgba(var(--t-primary-rgb),0.35)',
               }}
             >

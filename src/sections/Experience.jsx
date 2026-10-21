@@ -100,7 +100,7 @@ export default function Experience() {
                 {/* Icon — same gradient as Hero CTA button */}
                 <div
                   className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center"
-                  style={{ background: 'linear-gradient(135deg,#6C63FF,#a855f7)',
+                  style={{ background: 'linear-gradient(135deg,#2563EB,#3B82F6)',
                     boxShadow: '0 0 24px rgba(var(--t-primary-rgb),0.40)' }}
                 >
                   <FiZap size={18} className="text-white" />
@@ -131,7 +131,7 @@ export default function Experience() {
                   className="shrink-0 btn-shine text-[12px] font-semibold px-5 py-2.5 rounded-xl
                              text-white transition-all duration-200"
                   style={{
-                    background: 'linear-gradient(135deg,#6C63FF,#a855f7)',
+                    background: 'linear-gradient(135deg,#2563EB,#3B82F6)',
                     boxShadow: '0 0 20px rgba(var(--t-primary-rgb),0.35)',
                   }}
                 >

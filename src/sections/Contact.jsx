@@ -219,6 +219,7 @@ export default function Contact() {
             <form
               onSubmit={handleSubmit}
               noValidate
+              data-lenis-prevent
               className="border-glow-card rounded-2xl p-7 border border-white/[0.07]
                          flex flex-col gap-5"
               style={{ background: 'var(--t-card)', backdropFilter: 'blur(20px)' }}
@@ -247,6 +248,7 @@ export default function Contact() {
                   placeholder="What's on your mind?"
                   value={form.message} onChange={handleChange}
                   className={`${inputCls} resize-none`}
+                  data-lenis-prevent
                 />
               </Field>
 
@@ -265,7 +267,7 @@ export default function Contact() {
                               : status === 'error'   ? 'bg-red-500'
                               : ''}`}
                 style={status === 'idle' || status === 'sending' ? {
-                  background: 'linear-gradient(135deg,#6C63FF,#a855f7)',
+                  background: 'linear-gradient(135deg,#2563EB,#3B82F6)',
                   boxShadow: '0 0 32px rgba(var(--t-primary-rgb),0.40), 0 4px 20px rgba(var(--t-primary-rgb),0.28)',
                 } : {}}
               >

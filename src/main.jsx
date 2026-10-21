@@ -16,6 +16,7 @@ const lenis = new Lenis({
   wheelMultiplier: 1.0,
   touchMultiplier: 1.8,
   infinite: false,
+  allowNestedScroll: true,  // lets inputs/textareas receive native scroll/focus
 })
 
 // RAF loop
@@ -115,19 +116,14 @@ if (window.matchMedia('(pointer: fine)').matches) {
     glow.style.setProperty('--cy', `${e.clientY}px`)
   })
 
-  // Hover state — detect interactive elements
+  // Hover state — detect interactive elements via mousemove for reliability
+  // (mouseover/mouseout can miss elements inside Lenis-managed scroll containers)
   const INTERACTIVE = 'a,button,[role="button"],input,textarea,select,label,[tabindex]'
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(INTERACTIVE)) {
-      dot.classList.add('is-hovering')
-      ring.classList.add('is-hovering')
-    }
-  })
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(INTERACTIVE)) {
-      dot.classList.remove('is-hovering')
-      ring.classList.remove('is-hovering')
-    }
+  document.addEventListener('mousemove', e => {
+    const el = document.elementFromPoint(e.clientX, e.clientY)
+    const isInteractive = el && el.closest(INTERACTIVE)
+    dot.classList.toggle('is-hovering', !!isInteractive)
+    ring.classList.toggle('is-hovering', !!isInteractive)
   })
 
   // Click pulse

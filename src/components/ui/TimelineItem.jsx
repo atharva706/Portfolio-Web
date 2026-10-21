@@ -35,7 +35,7 @@ const TimelineItem = ({ item, isLast = false }) => {
         {!isLast && (
           <div
             className="w-px flex-1 mt-2"
-            style={{ background: 'linear-gradient(to bottom,rgba(var(--t-primary-rgb),0.50),rgba(108,99,255,0.0))' }}
+            style={{ background: 'linear-gradient(to bottom,rgba(var(--t-primary-rgb),0.50),rgba(37,99,235,0.0))' }}
           />
         )}
       </div>
